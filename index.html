@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Garden Eternal J&M 🌹</title>
+  <meta name="description" content="Rosas eternas hechas con amor. Ramos, materiales y comunidad emprendedora."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Nunito:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --rose:    #c2566b;
+      --rose-dk: #8a2a3e;
+      --rose-lt: #e8a0b2;
+      --dusty:   #d4899a;
+      --cream:   #fdf8f5;
+      --ivory:   #fff9f6;
+      --dark:    #2d1520;
+      --muted:   #9d7585;
+      --gold:    #c9a060;
+      --gold-lt: #f0dab5;
+    }
+
+    @keyframes fadeUp {
+      from { opacity:0; transform:translateY(26px); }
+      to   { opacity:1; transform:translateY(0); }
+    }
+    @keyframes floatRose {
+      0%,100% { transform: translateY(0) scale(1); }
+      50%      { transform: translateY(-10px) scale(1.03); }
+    }
+    @keyframes petalFall {
+      0%   { transform: translateY(-5vh) rotate(0deg); opacity:0; }
+      8%   { opacity:.55; }
+      92%  { opacity:.35; }
+      100% { transform: translateY(105vh) rotate(560deg); opacity:0; }
+    }
+    @keyframes shimmerGrad {
+      0%   { background-position:0% 50%; }
+      50%  { background-position:100% 50%; }
+      100% { background-position:0% 50%; }
+    }
+    @keyframes pulseRing {
+      0%,100% { box-shadow: 0 0 0 0 rgba(194,86,107,.25), 0 8px 32px rgba(138,42,62,.15); }
+      50%      { box-shadow: 0 0 0 10px rgba(194,86,107,0), 0 8px 32px rgba(138,42,62,.22); }
+    }
+    @keyframes ripple {
+      0%   { transform:scale(0); opacity:.3; }
+      100% { transform:scale(4); opacity:0; }
+    }
+    html { scroll-behavior:smooth; }
+    body {
+      font-family:'Nunito', sans-serif;
+      background:var(--cream); color:var(--dark);
+      min-height:100vh; overflow-x:hidden;
+    }
+
+    .petal {
+      position:fixed; pointer-events:none; z-index:0;
+      animation:petalFall linear infinite; opacity:0; user-select:none;
+    }
+
+    .page { position:relative; z-index:1; max-width:480px; margin:0 auto; padding-bottom:100px; }
+
+    /* ── TIKTOK CARD ── */
+    .tiktok-card {
+      border-radius:22px; overflow:hidden;
+      background: linear-gradient(135deg, #0d0d1a, #1a0a2e, #0d1a2e);
+      border:1px solid rgba(255,255,255,.08);
+      box-shadow:0 4px 28px rgba(0,0,0,.22);
+      padding:26px 22px; text-align:center;
+    }
+    .tiktok-card-icon {
+      font-size:2.4rem; display:block; margin-bottom:10px;
+      animation:floatRose 4s 0.5s ease-in-out infinite;
+    }
+    .tiktok-card-title {
+      font-family:'Playfair Display',serif;
+      font-size:1.1rem; font-weight:600;
+      color:#fff; margin-bottom:6px;
+    }
+    .tiktok-card-desc {
+      font-size:.78rem; color:rgba(255,255,255,.55);
+      line-height:1.55; margin-bottom:18px;
+    }
+    .tiktok-card-btn {
+      display:inline-flex; align-items:center; gap:9px;
+      background: linear-gradient(120deg, #ff0050, #ee1d7a, #00f2ea);
+      background-size:200% auto;
+      animation:shimmerGrad 3s ease infinite;
+      color:#fff; text-decoration:none;
+      padding:12px 28px; border-radius:50px;
+      font-size:.83rem; font-weight:700; letter-spacing:.04em;
+      box-shadow:0 6px 24px rgba(255,0,80,.35);
+      transition:transform .18s, box-shadow .18s;
+    }
+    .tiktok-card-btn:hover { transform:translateY(-2px); box-shadow:0 10px 32px rgba(255,0,80,.48); }
+
+    /* ── HERO ── */
+    .hero {
+      position:relative; text-align:center;
+      padding:52px 28px 44px; overflow:hidden;
+      animation:fadeUp .8s cubic-bezier(.22,.68,0,1.2) both;
+    }
+    .hero-bg {
+      position:absolute; inset:0;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 0%, rgba(232,160,178,.5) 0%, transparent 70%),
+        radial-gradient(ellipse 60% 80% at 10% 100%, rgba(212,137,154,.25) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 60% at 90% 80%, rgba(201,160,96,.12) 0%, transparent 60%),
+        linear-gradient(175deg, #fdf0f3 0%, #fdf8f5 55%, #f9f0ea 100%);
+      z-index:-1;
+    }
+    .hero-bg::after {
+      content:''; position:absolute; inset:0;
+      background:url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='40' cy='40' r='1' fill='%23c2566b' fill-opacity='0.05'/%3E%3C/svg%3E") repeat;
+    }
+    .hero-arc { position:absolute; border-radius:50%; border:1px solid rgba(194,86,107,.1); pointer-events:none; }
+    .hero-arc-1 { width:340px; height:340px; top:-120px; left:50%; transform:translateX(-50%); }
+    .hero-arc-2 { width:220px; height:220px; top:-40px; left:50%; transform:translateX(-50%); }
+
+    .logo-wrap { position:relative; display:inline-block; margin-bottom:18px; }
+    .logo-img {
+      width:106px; height:106px; border-radius:50%;
+      object-fit:cover;
+      border:3px solid rgba(255,255,255,.95);
+      box-shadow:0 12px 40px rgba(138,42,62,.18), 0 0 0 6px rgba(255,255,255,.55);
+      animation:floatRose 5s ease-in-out infinite, pulseRing 3s ease-in-out infinite;
+      display:block; background:#fff;
+    }
+
+    .hero-eyebrow { font-size:.68rem; font-weight:600; color:var(--dusty); letter-spacing:.22em; text-transform:uppercase; margin-bottom:8px; }
+    .hero h1 { font-family:'Playfair Display',serif; font-size:2.1rem; font-weight:700; color:var(--rose-dk); line-height:1.1; margin-bottom:4px; }
+    .hero h1 em { font-style:italic; font-weight:400; color:var(--rose); }
+    .hero-tagline { font-size:.82rem; color:var(--muted); line-height:1.6; margin:10px auto 20px; max-width:270px; }
+    .badge-row { display:flex; gap:7px; justify-content:center; flex-wrap:wrap; }
+    .badge {
+      display:inline-flex; align-items:center; gap:4px;
+      background:rgba(255,255,255,.75); border:1px solid rgba(194,86,107,.18);
+      border-radius:50px; padding:5px 13px; font-size:.7rem;
+      color:var(--rose-dk); letter-spacing:.05em; font-weight:600;
+      backdrop-filter:blur(6px); box-shadow:0 2px 8px rgba(194,86,107,.08);
+    }
+    .hero-divider { width:60px; height:2px; background:linear-gradient(90deg,transparent,var(--rose-lt),transparent); margin:22px auto 0; border-radius:2px; }
+
+    /* ── CONTENT ── */
+    .content { padding:10px 20px 0; }
+
+    .section { margin-bottom:26px; animation:fadeUp .7s ease both; }
+    .section:nth-child(1){animation-delay:.10s}
+    .section:nth-child(2){animation-delay:.20s}
+    .section:nth-child(3){animation-delay:.30s}
+    .section:nth-child(4){animation-delay:.40s}
+
+    /* ── WORLD LABEL ── */
+    .world-label {
+      display:flex; align-items:center; gap:12px;
+      margin-bottom:10px;
+    }
+    .world-line { flex:1; height:1px; background:linear-gradient(90deg,transparent,rgba(194,86,107,.25),transparent); }
+    .world-pill {
+      display:inline-flex; align-items:center; gap:6px;
+      background:var(--ivory); border:1px solid rgba(194,86,107,.18);
+      border-radius:50px; padding:6px 16px;
+      box-shadow:0 2px 10px rgba(138,42,62,.07);
+    }
+    .world-pill-icon { font-size:1rem; }
+    .world-pill-text {
+      font-family:'Playfair Display',serif;
+      font-size:.82rem; font-weight:600; font-style:italic;
+      color:var(--rose-dk); letter-spacing:.04em; white-space:nowrap;
+    }
+    .world-subtitle {
+      font-size:.72rem; color:var(--muted); font-weight:400;
+      text-align:center; margin-bottom:14px; letter-spacing:.02em;
+    }
+
+    /* ── CARD ── */
+    .card { background:var(--ivory); border-radius:22px; overflow:hidden; border:1px solid rgba(194,86,107,.1); box-shadow:0 1px 0 rgba(255,255,255,.9) inset, 0 4px 24px rgba(138,42,62,.07); }
+
+    /* ── BTN ── */
+    .btn {
+      position:relative; display:flex; align-items:center; gap:15px;
+      padding:16px 20px; text-decoration:none; color:var(--dark);
+      border-bottom:1px solid rgba(194,86,107,.07);
+      transition:background .22s, transform .15s; overflow:hidden; cursor:pointer;
+    }
+    .btn:last-child { border-bottom:none; }
+    .btn::before {
+      content:''; position:absolute; left:0; top:0; bottom:0; width:3px;
+      background:linear-gradient(180deg,var(--rose-lt),var(--rose));
+      transform:scaleY(0); transition:transform .22s; border-radius:0 3px 3px 0;
+    }
+    .btn:hover { background:rgba(245,224,229,.4); transform:translateX(4px); }
+    .btn:hover::before { transform:scaleY(1); }
+    .btn:active { transform:scale(.98); }
+    .btn .rpl { position:absolute; border-radius:50%; background:rgba(194,86,107,.15); width:60px; height:60px; margin-top:-30px; margin-left:-30px; animation:ripple .55s linear; pointer-events:none; }
+
+    .btn-icon { width:46px; height:46px; border-radius:14px; display:flex; align-items:center; justify-content:center; font-size:1.35rem; flex-shrink:0; box-shadow:0 3px 10px rgba(0,0,0,.06); }
+    .ic-rose   { background:linear-gradient(135deg,#fce4eb,#f9c5d5); }
+    .ic-green  { background:linear-gradient(135deg,#d4f5e3,#a9e6c4); }
+    .ic-gold   { background:linear-gradient(135deg,#fef3d0,#f5dea0); }
+    .ic-blue   { background:linear-gradient(135deg,#d6eeff,#a8ccf5); }
+    .ic-mint   { background:linear-gradient(135deg,#d4f5f0,#a8e6de); }
+    .ic-purple { background:linear-gradient(135deg,#ede0f8,#d4aef0); }
+
+    .btn-text { flex:1; }
+    .btn-text strong { display:block; font-size:.89rem; font-weight:600; margin-bottom:2px; }
+    .btn-text span   { display:block; font-size:.73rem; color:var(--muted); line-height:1.4; }
+    .btn-arrow { color:var(--rose-lt); font-size:1.3rem; transition:transform .2s; flex-shrink:0; }
+    .btn:hover .btn-arrow { transform:translateX(4px); }
+
+    /* ── PRIMARY CTA ── */
+    .btn-cta {
+      position:relative; display:flex; align-items:center; gap:15px;
+      padding:19px 22px; border-radius:18px; text-decoration:none; color:#fff;
+      margin-bottom:12px; overflow:hidden; cursor:pointer;
+      transition:transform .18s, box-shadow .18s;
+      box-shadow:0 8px 30px rgba(138,42,62,.32);
+    }
+    .btn-cta-bg {
+      position:absolute; inset:0;
+      background:linear-gradient(120deg,var(--rose-dk) 0%,var(--rose) 45%,#d4758a 70%,var(--rose-dk) 100%);
+      background-size:250% 250%; animation:shimmerGrad 3.5s ease infinite; z-index:0;
+    }
+    .btn-cta > * { position:relative; z-index:1; }
+    .btn-cta:hover { transform:translateY(-3px); box-shadow:0 14px 40px rgba(138,42,62,.42); }
+    .btn-cta:active { transform:scale(.98); }
+    .btn-cta .btn-icon { background:rgba(255,255,255,.22); box-shadow:none; }
+    .btn-cta .btn-text strong { color:#fff; font-size:.93rem; }
+    .btn-cta .btn-text span   { color:rgba(255,255,255,.78); }
+    .btn-cta .btn-arrow       { color:rgba(255,255,255,.65); font-size:1.4rem; }
+
+    /* ── ROSE CARD (igual que kit pero rosada) ── */
+    .rose-card {
+      border-radius:22px; overflow:hidden;
+      background:linear-gradient(135deg, #fce8ed, #fdf4f6, #f9e0ea);
+      border:1px solid rgba(194,86,107,.2);
+      box-shadow:0 4px 24px rgba(138,42,62,.1);
+      padding:24px 22px;
+    }
+    .rose-card .kit-header { margin-bottom:10px; }
+    .rose-card .kit-star { font-size:1.8rem; animation:floatRose 3.5s 0.3s ease-in-out infinite; }
+    .rose-card .kit-title { color:var(--rose-dk); }
+    .rose-card .kit-subtitle { color:var(--dusty); }
+    .rose-card .kit-btn {
+      background:rgba(255,255,255,.75);
+      border:1px solid rgba(194,86,107,.18);
+      box-shadow:0 2px 8px rgba(138,42,62,.07);
+    }
+    .rose-card .kit-btn:hover { background:rgba(255,255,255,.97); }
+    .rose-card .kit-btn-arrow { color:var(--rose); }
+    .rb-rose   { background:linear-gradient(135deg,#fce4eb,#f9c5d5); }
+    .rb-green  { background:linear-gradient(135deg,#d4f5e3,#a9e6c4); }
+
+    /* ── SOCIAL BUTTONS ── */
+    .social-row {
+      display:flex; gap:10px; margin-top:12px;
+    }
+    .social-btn {
+      flex:1; display:flex; align-items:center; justify-content:center; gap:8px;
+      border-radius:16px; padding:12px 10px;
+      text-decoration:none; font-size:.75rem; font-weight:600;
+      letter-spacing:.03em;
+      transition:transform .18s, box-shadow .18s;
+    }
+    .social-btn:hover { transform:translateY(-2px); }
+    .social-btn:active { transform:scale(.97); }
+    .social-btn-icon { font-size:1.1rem; }
+    .sb-insta {
+      background:linear-gradient(135deg, #fce4eb, #f5d0e0);
+      border:1px solid rgba(194,86,107,.2);
+      color:var(--rose-dk);
+      box-shadow:0 3px 12px rgba(138,42,62,.1);
+    }
+    .sb-insta:hover { box-shadow:0 6px 20px rgba(138,42,62,.18); }
+    .sb-fb {
+      background:linear-gradient(135deg, #e8d5f5, #d8c0ec);
+      border:1px solid rgba(138,86,194,.18);
+      color:#4a2a6b;
+      box-shadow:0 3px 12px rgba(100,60,160,.1);
+    }
+    .sb-fb:hover { box-shadow:0 6px 20px rgba(100,60,160,.18); }
+
+    /* ── ROSE CARD (igual que kit pero rosada) ── */
+    .rose-card {
+      border-radius:22px; overflow:hidden;
+      background:linear-gradient(135deg, #fce8ed, #fdf4f6, #f9e0ea);
+      border:1px solid rgba(194,86,107,.2);
+      box-shadow:0 4px 24px rgba(138,42,62,.1);
+      padding:24px 22px;
+    }
+    .rose-card .kit-title { color:var(--rose-dk); }
+    .rose-card .kit-subtitle { color:var(--dusty); }
+    .rose-card .kit-btn {
+      background:rgba(255,255,255,.75);
+      border:1px solid rgba(194,86,107,.18);
+      box-shadow:0 2px 8px rgba(138,42,62,.07);
+    }
+    .rose-card .kit-btn:hover { background:rgba(255,255,255,.97); }
+    .rose-card .kit-btn-arrow { color:var(--rose); }
+    .rb-rose  { background:linear-gradient(135deg,#fce4eb,#f9c5d5); }
+    .rb-green { background:linear-gradient(135deg,#d4f5e3,#a9e6c4); }
+
+    /* ── SOCIAL BUTTONS ── */
+    .social-row {
+      display:flex; gap:10px; margin-top:12px;
+    }
+    .social-btn {
+      flex:1; display:flex; align-items:center; justify-content:center; gap:7px;
+      border-radius:16px; padding:13px 10px;
+      text-decoration:none; font-size:.76rem; font-weight:600;
+      letter-spacing:.02em;
+      transition:transform .18s, box-shadow .18s;
+    }
+    .social-btn:hover  { transform:translateY(-2px); }
+    .social-btn:active { transform:scale(.97); }
+    .social-btn-icon { font-size:1.05rem; }
+    .sb-insta {
+      background:linear-gradient(135deg,#fce4eb,#f5d0e0);
+      border:1px solid rgba(194,86,107,.22);
+      color:var(--rose-dk);
+      box-shadow:0 3px 12px rgba(138,42,62,.1);
+    }
+    .sb-insta:hover { box-shadow:0 6px 20px rgba(138,42,62,.18); }
+    .sb-fb {
+      background:linear-gradient(135deg,#ede0f8,#d8c8f0);
+      border:1px solid rgba(138,86,194,.18);
+      color:#4a2a6b;
+      box-shadow:0 3px 12px rgba(100,60,160,.08);
+    }
+    .sb-fb:hover { box-shadow:0 6px 20px rgba(100,60,160,.16); }
+    .sb-tiktok {
+      background:linear-gradient(135deg,#f0e0f5,#e2c8ee);
+      border:1px solid rgba(138,42,62,.15);
+      color:#2d1520;
+      box-shadow:0 3px 12px rgba(45,21,32,.08);
+    }
+    .sb-tiktok:hover { box-shadow:0 6px 20px rgba(45,21,32,.15); }
+
+    /* ── KIT SECTION ── */
+    .kit-card {
+      border-radius:22px; overflow:hidden;
+      background:linear-gradient(135deg, #fdf3e0, #fef8ee, #fdf0e8);
+      border:1px solid rgba(201,160,96,.2);
+      box-shadow:0 4px 24px rgba(201,160,96,.12);
+      padding:24px 22px;
+    }
+    .kit-header { display:flex; align-items:center; gap:12px; margin-bottom:10px; }
+    .kit-star { font-size:1.8rem; animation:floatRose 3.5s 0.5s ease-in-out infinite; }
+    .kit-title-wrap { flex:1; }
+    .kit-title {
+      font-family:'Playfair Display',serif;
+      font-size:1.05rem; font-weight:700; color:#6b3a10; margin-bottom:2px;
+    }
+    .kit-subtitle { font-size:.73rem; color:#a07040; line-height:1.4; }
+    .kit-btns { display:flex; flex-direction:column; gap:9px; margin-top:16px; }
+    .kit-btn {
+      display:flex; align-items:center; gap:12px;
+      background:rgba(255,255,255,.7); border:1px solid rgba(201,160,96,.25);
+      border-radius:14px; padding:13px 16px;
+      text-decoration:none; color:var(--dark);
+      transition:background .2s, transform .15s;
+      box-shadow:0 2px 8px rgba(201,160,96,.1);
+    }
+    .kit-btn:hover { background:rgba(255,255,255,.95); transform:translateX(3px); }
+    .kit-btn:active { transform:scale(.98); }
+    .kit-btn-icon { width:38px; height:38px; border-radius:11px; display:flex; align-items:center; justify-content:center; font-size:1.1rem; flex-shrink:0; }
+    .kb-gold   { background:linear-gradient(135deg,#fef3d0,#f5dea0); }
+    .kb-green  { background:linear-gradient(135deg,#d4f5e3,#a9e6c4); }
+    .kb-purple { background:linear-gradient(135deg,#ede0f8,#d4aef0); }
+    .kit-btn-text { flex:1; }
+    .kit-btn-text strong { display:block; font-size:.84rem; font-weight:600; margin-bottom:1px; }
+    .kit-btn-text span   { display:block; font-size:.7rem; color:var(--muted); }
+    .kit-btn-arrow { color:var(--gold); font-size:1.2rem; }
+
+    /* ── COMMUNITY ── */
+    .community-card {
+      border-radius:22px; overflow:hidden;
+      background:linear-gradient(135deg,#fce8ed,#fdf4f6,#f5e8f9);
+      border:1px solid rgba(194,86,107,.14);
+      box-shadow:0 4px 24px rgba(138,42,62,.08);
+      padding:28px 22px; text-align:center;
+    }
+    .community-icon { font-size:2.2rem; display:block; margin-bottom:10px; animation:floatRose 4s 1s ease-in-out infinite; }
+    .community-title { font-family:'Playfair Display',serif; font-size:1.1rem; font-weight:600; color:var(--rose-dk); margin-bottom:6px; }
+    .community-desc { font-size:.78rem; color:var(--muted); line-height:1.55; margin-bottom:18px; }
+    .community-btn {
+      display:inline-flex; align-items:center; gap:8px;
+      background:linear-gradient(120deg,#8b2a3e,#c2566b); color:#fff;
+      text-decoration:none; padding:12px 26px; border-radius:50px;
+      font-size:.83rem; font-weight:600; letter-spacing:.04em;
+      box-shadow:0 6px 22px rgba(138,42,62,.3); transition:transform .18s, box-shadow .18s;
+    }
+    .community-btn:hover { transform:translateY(-2px); box-shadow:0 10px 30px rgba(138,42,62,.4); }
+
+    /* ── FOOTER ── */
+    .footer { text-align:center; padding:24px 20px 0; font-size:.7rem; color:var(--muted); line-height:1.7; animation:fadeUp .6s .5s ease both; }
+    .footer .heart { color:var(--rose); }
+
+    /* ── WA FLOAT ── */
+    .wa-float {
+      position:fixed; bottom:24px; right:20px;
+      width:56px; height:56px; border-radius:50%;
+      background:#25d366; display:flex; align-items:center; justify-content:center;
+      font-size:1.65rem; box-shadow:0 6px 24px rgba(37,211,102,.45);
+      text-decoration:none; z-index:200;
+      transition:transform .2s, box-shadow .2s;
+      animation:fadeUp .5s .7s ease both;
+    }
+    .wa-float:hover { transform:scale(1.12); box-shadow:0 12px 36px rgba(37,211,102,.55); }
+    .wa-float::after {
+      content:'Escríbenos'; position:absolute; right:66px;
+      background:#fff; color:var(--dark); font-family:'Nunito',sans-serif;
+      font-size:.72rem; font-weight:600; padding:5px 11px; border-radius:20px;
+      white-space:nowrap; box-shadow:0 4px 14px rgba(0,0,0,.12);
+      opacity:0; transform:translateX(6px); transition:opacity .2s, transform .2s; pointer-events:none;
+    }
+    .wa-float:hover::after { opacity:1; transform:translateX(0); }
+
+    @media (max-width:480px) {
+      .hero { padding:48px 20px 38px; }
+      .hero h1 { font-size:1.85rem; }
+      .content { padding:10px 14px 0; }
+    }
+  </style>
+</head>
+<body>
+
+<script>
+  const petals = ['\ud83c\udf38','\ud83c\udf39','\u273f','\u2740','\ud83c\udf3a'];
+  for (let i = 0; i < 14; i++) {
+    const el = document.createElement('span');
+    el.className = 'petal';
+    el.textContent = petals[i % petals.length];
+    el.style.cssText = `left:${Math.random()*100}%;font-size:${0.6+Math.random()*.7}rem;animation-duration:${7+Math.random()*9}s;animation-delay:${Math.random()*10}s;`;
+    document.body.appendChild(el);
+  }
+</script>
+
+<div class="page">
+
+
+
+  <!-- ── HERO ── -->
+  <header class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-arc hero-arc-1"></div>
+    <div class="hero-arc hero-arc-2"></div>
+    <div class="logo-wrap">
+      <img class="logo-img" src="logo.png" alt="Garden Eternal J&M"/>
+    </div>
+    <p class="hero-eyebrow">Bienvenida a</p>
+    <h1>Garden Eternal<br><em>J &amp; M</em></h1>
+    <p class="hero-tagline">Rosas eternas hechas con amor &middot; Para regalar, decorar y emprender con estilo</p>
+    <div class="badge-row">
+      <span class="badge">✨ Hecho a mano</span>
+      <span class="badge">🚚 Envíos</span>
+      <span class="badge">💌 Personalizado</span>
+    </div>
+    <div class="hero-divider"></div>
+  </header>
+
+  <main class="content">
+
+    <!-- ════════════════════════════════
+         🌹 MUNDO 1: PARA REGALAR
+    ════════════════════════════════ -->
+    <section class="section">
+      <div class="world-label">
+        <div class="world-line"></div>
+        <div class="world-pill">
+          <span class="world-pill-icon">🌹</span>
+          <span class="world-pill-text">Para regalar</span>
+        </div>
+        <div class="world-line"></div>
+      </div>
+      <p class="world-subtitle">Ramos eternos personalizados para cada ocasión</p>
+
+      <div class="rose-card">
+        <div class="kit-header">
+          <span class="kit-star">🌹</span>
+          <div class="kit-title-wrap">
+            <p class="kit-title">Pide tu ramo perfecto</p>
+            <p class="kit-subtitle">Hecho a mano · Personalizado · Con amor</p>
+          </div>
+        </div>
+        <div class="kit-btns">
+          <a href="https://wa.me/51938766452?text=Hola!%20Quiero%20pedir%20un%20ramo%20de%20rosas%20eternas%20%F0%9F%8C%B9" class="kit-btn">
+            <div class="kit-btn-icon rb-rose">🌹</div>
+            <div class="kit-btn-text">
+              <strong>Pedir mi ramo</strong>
+              <span>WhatsApp · 938 766 452</span>
+            </div>
+            <span class="kit-btn-arrow">›</span>
+          </a>
+          <a href="https://wa.me/51900900712?text=Hola!%20Quiero%20pedir%20un%20ramo%20de%20rosas%20eternas%20%F0%9F%8C%B9" class="kit-btn">
+            <div class="kit-btn-icon rb-green">🌸</div>
+            <div class="kit-btn-text">
+              <strong>Pedir mi ramo</strong>
+              <span>WhatsApp · 900 900 712</span>
+            </div>
+            <span class="kit-btn-arrow">›</span>
+          </a>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ════════════════════════════════
+         🌟 MUNDO 2: EMPIEZA TU NEGOCIO
+    ════════════════════════════════ -->
+    <section class="section">
+      <div class="world-label">
+        <div class="world-line"></div>
+        <div class="world-pill">
+          <span class="world-pill-icon">🌟</span>
+          <span class="world-pill-text">Empieza tu negocio</span>
+        </div>
+        <div class="world-line"></div>
+      </div>
+      <p class="world-subtitle">Todo lo que necesitas para emprender con flores eternas</p>
+
+      <div class="kit-card">
+        <div class="kit-header">
+          <span class="kit-star">🌟</span>
+          <div class="kit-title-wrap">
+            <p class="kit-title">Centro para emprendedoras</p>
+            <p class="kit-subtitle">Empieza desde cero · Con nuestro apoyo · Sin experiencia previa</p>
+          </div>
+        </div>
+        <div class="kit-btns">
+          <a href="https://wa.me/51956744914?text=Hola!%20Me%20interesa%20el%20kit%20inicial%20para%20emprender%20con%20rosas%20eternas%20%F0%9F%8C%B9" class="kit-btn">
+            <div class="kit-btn-icon kb-gold">🎁</div>
+            <div class="kit-btn-text">
+              <strong>Comprar kit inicial</strong>
+              <span>Todo incluido para empezar desde cero</span>
+            </div>
+            <span class="kit-btn-arrow">›</span>
+          </a>
+          <a href="https://wa.me/51956744914?text=Hola!%20Quiero%20comprar%20materiales%20para%20rosas%20eternas%20%F0%9F%8C%B9" class="kit-btn">
+            <div class="kit-btn-icon kb-green">🌸</div>
+            <div class="kit-btn-text">
+              <strong>Solo materiales</strong>
+              <span>Flores, cintas, bases y más</span>
+            </div>
+            <span class="kit-btn-arrow">›</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════
+         🌸 MUNDO 3: PARA APRENDER
+    ════════════════════════════════ -->
+    <section class="section">
+      <div class="world-label">
+        <div class="world-line"></div>
+        <div class="world-pill">
+          <span class="world-pill-icon">🌸</span>
+          <span class="world-pill-text">Para aprender</span>
+        </div>
+        <div class="world-line"></div>
+      </div>
+      <p class="world-subtitle">Comunidad y tips para emprendedoras</p>
+
+      <div class="community-card">
+        <span class="community-icon">🌸</span>
+        <p class="community-title">Únete a nuestra comunidad</p>
+        <p class="community-desc">Un grupo especial para emprendedoras como tú.<br>Comparte, aprende y crece con nosotras. <strong>¡Es gratis!</strong></p>
+        <a href="https://chat.whatsapp.com/CMHPDhzzyfnKDMrn21aZUr?mode=gi_t" class="community-btn">Quiero unirme gratis</a>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════
+         REDES SOCIALES (al final)
+    ════════════════════════════════ -->
+    <section class="section">
+      <div class="world-label">
+        <div class="world-line"></div>
+        <div class="world-pill">
+          <span class="world-pill-icon">✨</span>
+          <span class="world-pill-text">Síguenos</span>
+        </div>
+        <div class="world-line"></div>
+      </div>
+      <!-- 🔁 Cambia los href por tus redes reales -->
+      <div class="social-row">
+        <a href="https://www.tiktok.com/@TU_USUARIO" target="_blank" class="social-btn sb-tiktok">
+          <span class="social-btn-icon">🎥</span> TikTok
+        </a>
+        <a href="https://www.instagram.com/TU_USUARIO" target="_blank" class="social-btn sb-insta">
+          <span class="social-btn-icon">📷</span> Instagram
+        </a>
+        <a href="https://www.facebook.com/TU_USUARIO" target="_blank" class="social-btn sb-fb">
+          <span class="social-btn-icon">💜</span> Facebook
+        </a>
+      </div>
+    </section>
+
+    <footer class="footer">
+      Hecho con <span class="heart">🌹</span> y mucho amor<br>
+      <strong>Garden Eternal J&amp;M</strong> &copy; 2026 &middot; Perú
+    </footer>
+
+  </main>
+</div>
+
+</body>
+</html>
